@@ -29,11 +29,13 @@ all the advertisers aggregated. The exact format of the result is as follows -
 {
    '<advertiser-1>' : {
                        'commission-amount' : '<amount-in-cents>', # if you have configured staagg with USD else appropriate currency
-                       'type' : '<tag-of-the-affilate-channel>' # this you configure in staagg when you add a affiliate channel
+                       'type' : '<tag-of-the-affilate-channel>', # this you configure in staagg when you add a affiliate channel
+		       'advertiser-name' : '<name-of-the-advertiser>' # this is the name of the advertiser
                     },
   '<advertiser-2>' : {
                         'commission-amount' : '<amount-in-cents>',
-                        'type' : '<tag-of-the-affiliate-channel>'
+                        'type' : '<tag-of-the-affiliate-channel>',
+			'advertiser-name' : '<name-of-the-advertiser>'
                      } 
 }
 ```

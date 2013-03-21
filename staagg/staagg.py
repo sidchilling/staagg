@@ -53,10 +53,15 @@ class Staagg(object):
 	    for item in items:
 		advertiser_id = item.get('advertiserId') 
 		commission_amount = int(item.get('commissionAmount'))
+		advertiser_name = item.get('advertiserName')
 		if advertiser_id in commission_data:
-		    commission_data[advertiser_id] = commission_data.get(advertiser_id) + commission_amount
+		    commission_data[advertiser_id]['commission-amount'] = commission_data.get(advertiser_id).get('commission-amount') + \
+			    commission_amount
 		else:
-		    commission_data[advertiser_id] = commission_amount
+		    commission_data[advertiser_id] = {
+			    'commission-amount' : commission_amount,
+			    'advertiser-name' : advertiser_name
+			    }
 	    data['commission_data'] = commission_data
 	    return data
 	else:
@@ -74,7 +79,8 @@ class Staagg(object):
 	    total_pages = data.get('total_pages')
 	    for advertiser_id in data.get('commission_data').keys():
 		if advertiser_id in res:
-		    res[advertiser_id] = res[advertiser_id] + data.get('commission_data').get(advertiser_id)
+		    res[advertiser_id]['commission-amount'] = res.get(advertiser_id).get('commission-amount') + \
+			    data.get('commission_data').get(advertiser_id).get('commission-amount')
 		else:
 		    res[advertiser_id] = data.get('commission_data').get(advertiser_id)
 	return res
@@ -85,7 +91,8 @@ class Staagg(object):
 	{
 	    '<advertiser-id>' : {
 		    'commission-amount': <amount-in-cents>,
-		    'type' : <type-of-network> (e.g. Commission Junction, Google Affiliate Network etc)
+		    'type' : <type-of-network>, (e.g. Commission Junction, Google Affiliate Network etc)
+		    'name' : <advertiser-name>
 		}
 	}
 	'''
@@ -96,7 +103,8 @@ class Staagg(object):
 	    commission_data = self._get_network_commission_data(network = network)
 	    for advertiser_id in commission_data.keys():
 		res[advertiser_id] = {
-			'commission_amount' : commission_data.get(advertiser_id),
+			'commission-amount' : commission_data.get(advertiser_id).get('commission-amount'),
+			'advertiser-name' : commission_data.get(advertiser_id).get('advertiser-name'),
 			'type' : network.get('tag')
 			}
 	return res
