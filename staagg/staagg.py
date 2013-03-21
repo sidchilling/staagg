@@ -92,7 +92,7 @@ class Staagg(object):
 	    '<advertiser-id>' : {
 		    'commission-amount': <amount-in-cents>,
 		    'type' : <type-of-network>, (e.g. Commission Junction, Google Affiliate Network etc)
-		    'name' : <advertiser-name>
+		    'advertiser-name' : <advertiser-name>
 		}
 	}
 	'''
